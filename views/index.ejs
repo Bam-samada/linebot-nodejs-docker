@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add New Book</title>
+    <link rel="stylesheet" href="/main.css" />
+    <style>
+      .container {
+        margin-top: 15px;
+      }
+      .ass {
+        color: red;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Recommend Book</h1>
+      <p>
+        <pre>กรุณากรอกหนังสือที่ต้องการแนะนำผ่าน LINE Beacon จำนวนที่แจ้งเตือนได้สูงสุด 12 Item เท่านั้น <pre class="ass">อยากได้มากกว่านั้นมีค่าใช้จ่ายนะแม่</pre></pre>
+        
+      </p>
+      <div class="d-flex justify-contant-between float-end">
+        <button
+          class="btn btn-success"
+          data-bs-toggle="modal"
+          data-bs-target="#exampleModal"
+        >
+          Add Book +
+        </button>
+      </div>
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Book_name</th>
+            <th scope="col">Book_description</th>
+            <th scope="col">Book_Image</th>
+            <th scope="col">created</th>
+            <th scope="col">action</th>
+          </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
+
+      <!-- addModal -->
+      <div
+        class="modal fade"
+        id="exampleModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <form name="form" id="submitForm" enctype="multipart/form-data">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">
+                  Add Data
+                </h1>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body">
+                <div class="mb-3">
+                  <label for="book_name" class="form-label">Book Name</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="book_name"
+                    name="book_name"
+                    placeholder="Enter name"
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="book_description" class="form-label">Book description</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="book_description"
+                    name="book_description"
+                    placeholder="Enter Book description"
+                  />
+                </div>
+                <input type="file" id="files" name="files" accept="image/*" />
+                <br />
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Close
+                </button>
+                <button type="submit" class="btn btn-primary">
+                  Save changes
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- editModal -->
+      <div
+        class="modal fade"
+        id="editDataModal"
+        tabindex="-1"
+        aria-labelledby="editDataModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <form name="formEdit" id="formEdit" enctype="multipart/form-data">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="editDataModalLabel">
+                  Edit Data
+                </h1>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body" id="bodyData"></div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Close
+                </button>
+                <button type="submit" class="btn btn-primary">
+                  Save changes
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="jquery/dist/jquery.min.js"></script>
+    <script src="bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="date-and-time/date-and-time.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        rendar();
+      });
+      //get Data
+      function rendar() {
+        $.ajax({
+          method: "get",
+          url: "/index/getall",
+          success: (response) => {
+            console.log(response);
+            if (response.status === 200) {
+              if (response.data.length > 0) {
+                let htmnlData = "";
+                for (let index = 0; index < response.data.length; index++) {
+                  let newDateTime = new Date(response.data[index].book_created);
+                  htmnlData += `
+                    <tr>
+                      <th scope="row">${index + 1}</th>
+                      <td>${response.data[index].book_name}</td>
+                      <td>${response.data[index].book_description}</td>
+                      <td><img src="./uploads/${
+                        response.data[index].book_image
+                      }" width="100">${
+                        response.data[index].book_image
+                      }</td>
+                      <td>${date.format(
+                        newDateTime,
+                        "DD/MM/YYYY HH:mm:ss"
+                      )}</td>
+                      <td>
+                        <button onclick="showData('${
+                          response.data[index].book_id
+                        }', '${response.data[index].book_name}', '${
+                    response.data[index].book_description
+                  }', '${
+                    response.data[index].book_created
+                  }')" data-bs-toggle="modal" data-bs-target="#editDataModal" class="btn btn-primary">Edit</button>
+                        <button onclick="deleteData(${
+                          response.data[index].book_id
+                        })" class="btn btn-danger" >Delete</button>
+                      </td>
+                    </tr>
+                  `;
+                }
+                $("#tbody").html(htmnlData);
+              }
+            }
+          },
+          error: (err) => {
+            console.log("Error:" + err);
+          },
+        });
+      }
+      //add Data
+      $("#submitForm").submit((e) => {
+        e.preventDefault();
+        var formData = new FormData();
+        var file = $("#files")[0].files;
+        formData.append("files", files.files[0]);
+        formData.append("book_name", $("#book_name").val());
+        formData.append("book_description", $("#book_description").val());
+        // if ($("files").val() != "") {
+        // }
+        // Attach file
+
+        console.log($("#book_description").val());
+        $.ajax({
+          url: "/index/insert",
+          data: formData,
+          cache: false,
+          contentType: false,
+          processData: false,
+          method: "POST",
+          success: function (response) {
+            console.log(response);
+            rendar();
+            $("#book_name").val("");
+            $("#book_description").val("");
+            $("#files").val("");
+            alert("Added successfully");
+          },
+          error: function (xhr, status, error) {
+            var err = JSON.parse(xhr.responseText);
+            alert(err.message);
+          },
+        });
+      });
+      //show data
+      function showData(book_id, book_name, book_description, book_created) {
+        let htmlGetId;
+        htmlGetId = `
+                <input type="hidden" id="editBookId" name="book_id" value="${book_id}">
+                <div class="mb-3">
+                  <label for="book_name" class="form-label">Book Name</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="editBookName"
+                    value="${book_name}"
+                    placeholder="Enter name"
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="book_description" class="form-label">Book description</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="editBookDescription"
+                    value="${book_description}"
+                    placeholder="Enter Book description"
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="image" class="form-label">Image</label>
+                  <input
+                    type="file"
+                    id="editfiles"
+                    name="editfiles"
+                    accept="image/*"
+                  />
+                </div>
+              `;
+
+        $("#bodyData").html(htmlGetId);
+      }
+      //edit data
+      $("#formEdit").submit((e) => {
+        e.preventDefault();
+        var file = $("#editfiles")[0].files;
+        var formData = new FormData();
+        formData.append("BookId", $("#editBookId").val());
+        formData.append("book_name", $("#editBookName").val());
+        formData.append("book_description", $("#editBookDescription").val());
+        formData.append("editfiles", editfiles.files[0]);
+
+        // Attach file
+
+        console.log(file);
+        $.ajax({
+          url: "/index/update2",
+          data: formData,
+          // cache: false,
+          contentType: false,
+          processData: false,
+          method: "put",
+          success: function (response) {
+            console.log(response);
+            rendar();
+            alert("Edit successfully");
+          },
+          error: function (xhr, status, error) {
+            var err = JSON.parse(xhr.responseText);
+            alert(err.message);
+          },
+        });
+      });
+      function editData() {
+        $.ajax({
+          method: "put",
+          url: "/index/update",
+          data: {
+            book_id: $("#editId").val(),
+            book_name: $("#editBookName").val(),
+            book_description: $("#editBookDescription").val(),
+            book_created: $("#editDateTime").val(),
+          },
+          success: (response) => {
+            console.log(response);
+            if (response.status === 200) {
+              rendar();
+              $("#editDataModal").modal("toggle");
+            }
+          },
+          error: (err) => {
+            console.log("Error:" + err);
+          },
+        });
+      }
+
+      //delete Data
+      function deleteData(dataId) {
+        let msg = "ยืนยันการลบ แต่ลบไม่ได้ช่วยให้ลืม";
+        if (confirm(msg) == true) {
+          let dataIdDelete = dataId;
+          console.log(dataIdDelete);
+          $.ajax({
+            method: "delete",
+            url: "/index/delete",
+            data: {
+              id: dataIdDelete,
+            },
+            success: (response) => {
+              console.log(response);
+              if (response.status === 200) {
+                rendar();
+              }
+            },
+            error: (err) => {
+              console.log("Error:" + err);
+            },
+          });
+        } else {
+          alert("คิดถูกแล้ว");
+        }
+      }
+    </script>
+  </body>
+</html>
