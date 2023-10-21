@@ -8,7 +8,7 @@ services:
       - mysql
     links:
       - mysql
-    command: npx nodemon index.js # เปลี่ยนคำสั่งนี้
+    command: npx nodemon index.js
 
     volumes:
       - ./public/uploads:/usr/src/app/public/uploads
@@ -16,10 +16,12 @@ services:
   mysql:
     image: mysql:latest
     environment:
-      MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: mydatabase
+      MYSQL_ROOT_PASSWORD: linebot@2023$
+      MYSQL_DATABASE: my_db_book
     ports:
       - "3306:3306"
+    volumes:
+      - ./database-data-mysql:/data/mysql
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
@@ -29,14 +31,17 @@ services:
       - "8080:80"
     environment:
       PMA_HOST: mysql
-      MYSQL_ROOT_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: linebot@2023$
 
   nginx:
     image: nginx:latest
     ports:
       - "80:80"
+      - "443:443"
     volumes:
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./ssl/certificate.crt:/etc/nginx/certs/certificate.crt
+      - ./ssl/private.key:/etc/nginx/certs/private.key
     depends_on:
       - basic-docker-web
       - phpmyadmin
