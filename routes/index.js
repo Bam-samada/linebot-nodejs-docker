@@ -190,7 +190,7 @@ router.put("/update2", (req, res) => {
 //delete data some value
 router.delete("/delete", (req, res) => {
   let book_id = _.get(req, ["body", "book_id"]);
-  console.log(book_id);
+  console.log("test"+book_id);
   let sql = "DELETE FROM tb_book WHERE book_id =?";
   if (book_id) {
     conn.query(sql, [parseInt(book_id)], (err, data, field) => {
