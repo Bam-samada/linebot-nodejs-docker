@@ -81,7 +81,7 @@ router.post("/insert", (req, res, next) => {
       }
       return res.json(error);
     } else {
-      let { book_name, book_description } = req.body;
+      let { book_name, book_description, book_url } = req.body;
       if (!req.file) {
         var book_image = "";
       } else {
