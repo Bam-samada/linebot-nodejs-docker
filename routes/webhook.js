@@ -180,288 +180,106 @@ router.post("/webhook", (req, res) => {
         requestMessage(dataString);
       }
     }
-    // let dataString = JSON.stringify({
-    //   replyToken: req.body.events[0].replyToken,
-    //   // message image
-    //   messages: [
-    //     {
-    //       type: "image",
-    //       originalContentUrl:
-    //         "https://images.pexels.com/photos/268533/pexels-photo-268533.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-    //       previewImageUrl:
-    //         "https://images.pexels.com/photos/268533/pexels-photo-268533.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-    //     },
-
-    //     //   video
-    //     //   {
-    //     //     type: "video",
-    //     //     originalContentUrl: "https://example.com/original.mp4",
-    //     //     previewImageUrl: "https://example.com/preview.jpg",
-    //     //     trackingId: "track-id",
-    //     //   },
-
-    //     //  audio
-    //     //   {
-    //     //     type: "audio",
-    //     //     originalContentUrl: "https://example.com/original.m4a",
-    //     //     duration: 60000,
-    //     //   },
-
-    //     // location
-    //     {
-    //       type: "location",
-    //       title: "my location",
-    //       address: "1-6-1 Yotsuya, Shinjuku-ku, Tokyo, 160-0004, Japan",
-    //       latitude: 35.687574,
-    //       longitude: 139.72922,
-    //     },
-
-    //     // flex from bot desinger
-    //     {
-    //       type: "template",
-    //       altText: "this is a confirm template",
-    //       template: {
-    //         type: "confirm",
-    //         text: "Are you sure?",
-    //         actions: [
-    //           {
-    //             type: "message",
-    //             label: "Yes",
-    //             text: "yes",
-    //           },
-    //           {
-    //             type: "message",
-    //             label: "No",
-    //             text: "no",
-    //           },
-    //         ],
-    //       },
-    //     },
-    //     // message flex from flex simulator
-    //     {
-    //       type: "flex",
-    //       altText: "List",
-    //       contents: {
-    //         type: "carousel",
-    //         contents: [
-    //           {
-    //             type: "bubble",
-    //             hero: {
-    //               type: "image",
-    //               size: "full",
-    //               aspectRatio: "20:13",
-    //               aspectMode: "cover",
-    //               url: "https://scdn.line-apps.com/n/channel_devcenter/img/fx/01_5_carousel.png",
-    //             },
-    //             body: {
-    //               type: "box",
-    //               layout: "vertical",
-    //               spacing: "sm",
-    //               contents: [
-    //                 {
-    //                   type: "text",
-    //                   text: "Arm Chair, White",
-    //                   wrap: true,
-    //                   weight: "bold",
-    //                   size: "xl",
-    //                 },
-    //                 {
-    //                   type: "box",
-    //                   layout: "baseline",
-    //                   contents: [
-    //                     {
-    //                       type: "text",
-    //                       text: "$49",
-    //                       wrap: true,
-    //                       weight: "bold",
-    //                       size: "xl",
-    //                       flex: 0,
-    //                     },
-    //                     {
-    //                       type: "text",
-    //                       text: ".99",
-    //                       wrap: true,
-    //                       weight: "bold",
-    //                       size: "sm",
-    //                       flex: 0,
-    //                     },
-    //                   ],
-    //                 },
-    //               ],
-    //             },
-    //             footer: {
-    //               type: "box",
-    //               layout: "vertical",
-    //               spacing: "sm",
-    //               contents: [
-    //                 {
-    //                   type: "button",
-    //                   style: "primary",
-    //                   action: {
-    //                     type: "uri",
-    //                     label: "Add to Cart",
-    //                     uri: "https://linecorp.com",
-    //                   },
-    //                 },
-    //                 {
-    //                   type: "button",
-    //                   action: {
-    //                     type: "uri",
-    //                     label: "Add to wishlist",
-    //                     uri: "https://linecorp.com",
-    //                   },
-    //                 },
-    //               ],
-    //             },
-    //           },
-    //           {
-    //             type: "bubble",
-    //             hero: {
-    //               type: "image",
-    //               size: "full",
-    //               aspectRatio: "20:13",
-    //               aspectMode: "cover",
-    //               url: "https://scdn.line-apps.com/n/channel_devcenter/img/fx/01_6_carousel.png",
-    //             },
-    //             body: {
-    //               type: "box",
-    //               layout: "vertical",
-    //               spacing: "sm",
-    //               contents: [
-    //                 {
-    //                   type: "text",
-    //                   text: "Metal Desk Lamp",
-    //                   wrap: true,
-    //                   weight: "bold",
-    //                   size: "xl",
-    //                 },
-    //                 {
-    //                   type: "box",
-    //                   layout: "baseline",
-    //                   flex: 1,
-    //                   contents: [
-    //                     {
-    //                       type: "text",
-    //                       text: "$11",
-    //                       wrap: true,
-    //                       weight: "bold",
-    //                       size: "xl",
-    //                       flex: 0,
-    //                     },
-    //                     {
-    //                       type: "text",
-    //                       text: ".99",
-    //                       wrap: true,
-    //                       weight: "bold",
-    //                       size: "sm",
-    //                       flex: 0,
-    //                     },
-    //                   ],
-    //                 },
-    //                 {
-    //                   type: "text",
-    //                   text: "Temporarily out of stock",
-    //                   wrap: true,
-    //                   size: "xxs",
-    //                   margin: "md",
-    //                   color: "#ff5551",
-    //                   flex: 0,
-    //                 },
-    //               ],
-    //             },
-    //             footer: {
-    //               type: "box",
-    //               layout: "vertical",
-    //               spacing: "sm",
-    //               contents: [
-    //                 {
-    //                   type: "button",
-    //                   flex: 2,
-    //                   style: "primary",
-    //                   color: "#aaaaaa",
-    //                   action: {
-    //                     type: "uri",
-    //                     label: "Add to Cart",
-    //                     uri: "https://linecorp.com",
-    //                   },
-    //                 },
-    //                 {
-    //                   type: "button",
-    //                   action: {
-    //                     type: "uri",
-    //                     label: "Add to wish list",
-    //                     uri: "https://linecorp.com",
-    //                   },
-    //                 },
-    //               ],
-    //             },
-    //           },
-    //           {
-    //             type: "bubble",
-    //             body: {
-    //               type: "box",
-    //               layout: "vertical",
-    //               spacing: "sm",
-    //               contents: [
-    //                 {
-    //                   type: "button",
-    //                   flex: 1,
-    //                   gravity: "center",
-    //                   action: {
-    //                     type: "uri",
-    //                     label: "See more",
-    //                     uri: "https://linecorp.com",
-    //                   },
-    //                 },
-    //               ],
-    //             },
-    //           },
-    //         ],
-    //       },
-    //     },
-    //     // message quick reply
-    //     {
-    //       type: "text", // 1
-    //       text: "Select your favorite food category or send me your location!",
-    //       quickReply: {
-    //         items: [
-    //           {
-    //             type: "action",
-    //             action: {
-    //               type: "cameraRoll",
-    //               label: "Send photo",
-    //             },
-    //           },
-    //           {
-    //             type: "action",
-    //             action: {
-    //               type: "camera",
-    //               label: "Open camera",
-    //             },
-    //           },
-    //         ],
-    //       },
-    //     },
-    //   ],
-    // });
-    // requestMessage(dataString);
-
-    // console.log(messageType);
   }
 
   //messageType beacon Message
   if (req.body.events[0].type === "beacon") {
     if (req.body.events[0].beacon.hwid === "0172667293") {
-      let dataString = JSON.stringify({
-        replyToken: req.body.events[0].replyToken,
-        messages: [
-          {
-            type: "text",
-            text: "Message",
-          },
-        ],
+       let sql = "SELECT * FROM tb_book";
+      conn.query(sql, [], (err, resp, field) => {
+        if (err) {
+          console.log("failed: " + err.message);
+          return res.status(400).json({
+            status: 400,
+            message: "Bad: " + err.message,
+          });
+        }
+        bubbleData = [];
+        if (resp.length > 0) {
+          for (let index = 0; index < resp.length; index++) {
+            // console.log(resp[index].name);
+            bubbleData.push({
+              type: "bubble",
+              hero: {
+                type: "image",
+                size: "full",
+                aspectRatio: "20:13",
+                aspectMode: "cover",
+                url:
+                  "https://line.rmutt.ac.th/uploads/" +
+                  resp[index].book_image,
+              },
+              body: {
+                type: "box",
+                layout: "vertical",
+                spacing: "sm",
+                contents: [
+                  {
+                    type: "text",
+                    text: resp[index].book_name,
+                    wrap: true,
+                    weight: "bold",
+                    size: "xl",
+                  },
+                  {
+                    type: "box",
+                    layout: "baseline",
+                    contents: [
+                      {
+                        type: "text",
+                        text: resp[index].book_description,
+                        wrap: true,
+                        weight: "bold",
+                        flex: 0,
+                        size: "sm",
+                        color: "#aaaaaa",
+                      },
+                    ],
+                  },
+                ],
+              },
+              footer: {
+                type: "box",
+                layout: "vertical",
+                spacing: "sm",
+                contents: [
+                  {
+                    type: "button",
+                    style: "primary",
+                    action: {
+                      type: "uri",
+                      label: "ดูรายการ",
+                      uri: "https://test.com",
+                    },
+                  },
+                ],
+              },
+            });
+          }
+          let dataString = JSON.stringify({
+            replyToken: req.body.events[0].replyToken,
+            messages: [
+              {
+                type: "flex",
+                altText: "List",
+                contents: {
+                  type: "carousel",
+                  contents: bubbleData,
+                },
+              },
+            ],
+          });
+
+          dataName(dataString);
+          // Now you can use dataString as needed
+        } else {
+          console.log("No data found");
+          // Handle case where no data is returned
+        }
       });
-      requestMessage(dataString);
+      function dataName(dataString) {
+        requestMessage(dataString);
+      }
     }
   }
   // Request header
