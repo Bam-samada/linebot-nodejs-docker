@@ -92,7 +92,7 @@ router.post("/insert", (req, res, next) => {
 
       if (book_name && book_description && book_url && book_image) {
         let sql =
-          "INSERT INTO tb_book (book_name, book_description, book_url, book_image) VALUES (?,?,?)";
+          "INSERT INTO tb_book (book_name, book_description, book_url, book_image) VALUES (?,?,?,?)";
         conn.query(
           sql,
           [book_name, book_description, book_url, book_image],
