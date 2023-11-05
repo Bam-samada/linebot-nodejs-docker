@@ -39,6 +39,7 @@
             <th scope="col">#</th>
             <th scope="col">Book_name</th>
             <th scope="col">Book_description</th>
+            <th scope="col">Book_url</th>
             <th scope="col">Book_Image</th>
             <th scope="col">created</th>
             <th scope="col">action</th>
@@ -88,6 +89,16 @@
                     id="book_description"
                     name="book_description"
                     placeholder="Enter Book description"
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="book_url" class="form-label">Book url</label>
+                  <input
+                    type="url"
+                    class="form-control"
+                    id="book_url"
+                    name="book_url"
+                    placeholder="Enter Book url"
                   />
                 </div>
                 <input type="file" id="files" name="files" accept="image/*" />
@@ -175,6 +186,7 @@
                       <th scope="row">${index + 1}</th>
                       <td>${response.data[index].book_name}</td>
                       <td>${response.data[index].book_description}</td>
+                      <td>${response.data[index].book_url}</td>
                       <td><img src="./uploads/${
                         response.data[index].book_image
                       }" width="100">${
@@ -216,6 +228,7 @@
         formData.append("files", files.files[0]);
         formData.append("book_name", $("#book_name").val());
         formData.append("book_description", $("#book_description").val());
+        formData.append("book_url", $("#book_url").val());
         // if ($("files").val() != "") {
         // }
         // Attach file
@@ -233,6 +246,7 @@
             rendar();
             $("#book_name").val("");
             $("#book_description").val("");
+            $("#book_url").val("");
             $("#files").val("");
             alert("Added successfully");
           },
@@ -270,6 +284,16 @@
                   />
                 </div>
                 <div class="mb-3">
+                  <label for="book_url" class="form-label">Book Url</label>
+                  <input
+                    type="url"
+                    class="form-control"
+                    id="editBookUrl"
+                    value="${book_url}"
+                    placeholder="Enter Book url"
+                  />
+                </div>
+                <div class="mb-3">
                   <label for="image" class="form-label">Image</label>
                   <input
                     type="file"
@@ -290,6 +314,7 @@
         formData.append("BookId", $("#editBookId").val());
         formData.append("book_name", $("#editBookName").val());
         formData.append("book_description", $("#editBookDescription").val());
+        formData.append("book_url", $("#editBookUrl").val());
         formData.append("editfiles", editfiles.files[0]);
 
         // Attach file
@@ -323,6 +348,7 @@
             book_id: $("#editId").val(),
             book_name: $("#editBookName").val(),
             book_description: $("#editBookDescription").val(),
+            book_url: $("#editBookUrl").val(),
             book_created: $("#editDateTime").val(),
           },
           success: (response) => {
