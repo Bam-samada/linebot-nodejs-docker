@@ -35,7 +35,7 @@ router.get("/", function (req, res) {
 router.post("/webhook", (req, res) => {
   console.log("req.body =>", JSON.stringify(req.body, null, 2)); //สิ่งที่ Line ส่งมา
   res.send("HTTP POST request sent to the webhook URL!");
-  console.log(userId)
+
   if (req.body.events[0].type === "message") {
     // Message data, must be stringified
     let messageType = req.body.events[0].message.type;
@@ -313,6 +313,7 @@ router.post("/webhook", (req, res) => {
     // Send data
     
     let userId = req.body.events[0].source.userId;
+    console.log("userId =" + userId)
     if(userId != ''){
       let sql = "INSERT INTO notification_user (userId,	status) VALUES (?,?)"
       conn.query(
