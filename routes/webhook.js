@@ -311,7 +311,13 @@ router.post("/webhook", (req, res) => {
     });
 
     // Send data
-    
+    insertNoti()
+    console.log(dataString);
+    request.write(dataString);
+    request.end();
+  }
+
+  function insertNoti(){
     let userId = req.body.events[0].source.userId;
     console.log("userId =" + userId)
     if(userId != ''){
@@ -332,10 +338,8 @@ router.post("/webhook", (req, res) => {
           }
         );
     }
-    console.log(dataString);
-    request.write(dataString);
-    request.end();
   }
+  
 });
 
 module.exports = router; // ส่ง router ที่เราสร้าง ออกไปใช้งานภายนอกไฟล์
