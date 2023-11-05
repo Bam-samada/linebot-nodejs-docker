@@ -90,9 +90,9 @@ router.post("/insert", (req, res, next) => {
       console.log(req.body);
       console.log(req.file);
 
-      if (book_name && book_description && book_image) {
+      if (book_name && book_description && book_url && book_image) {
         let sql =
-          "INSERT INTO tb_book (book_name, book_description, book_image) VALUES (?,?,?)";
+          "INSERT INTO tb_book (book_name, book_description, book_url, book_image) VALUES (?,?,?)";
         conn.query(
           sql,
           [book_name, book_description, book_image],
@@ -155,12 +155,12 @@ router.put("/update2", (req, res) => {
       getImage()
         .then((book_image) => {
           console.log(book_image);
-          if (book_name && book_description && book_image) {
+          if (book_name && book_description && book_url && book_image) {
             let sql =
-              "UPDATE tb_book SET book_name =?, book_description =?, book_image =? WHERE book_id =?";
+              "UPDATE tb_book SET book_name =?, book_description =?, book_url =?, book_image =? WHERE book_id =?";
             conn.query(
               sql,
-              [book_name, book_description, book_image, parseInt(BookId)],
+              [book_name, book_description, book_url, book_image, parseInt(BookId)],
               (err, resp, field) => {
                 if (resp) {
                   console.log("Update Success " + book_name);
