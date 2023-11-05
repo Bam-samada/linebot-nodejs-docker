@@ -147,8 +147,8 @@ router.post("/webhook", (req, res) => {
                     style: "primary",
                     action: {
                       type: "uri",
-                      label: "ดูรายการ",
-                      uri: "https://test.com",
+                      label: "ดูรายการนี้",
+                      uri: resp[index].book_url
                     },
                   },
                 ],
@@ -248,8 +248,8 @@ router.post("/webhook", (req, res) => {
                     style: "primary",
                     action: {
                       type: "uri",
-                      label: "ดูรายการ",
-                      uri: "https://test.com",
+                      label: "ดูรายการนี้",
+                      uri: resp[index].book_url
                     },
                   },
                 ],
