@@ -36,7 +36,7 @@ router.post("/webhook", (req, res) => {
   console.log("req.body =>", JSON.stringify(req.body, null, 2)); //สิ่งที่ Line ส่งมา
   res.send("HTTP POST request sent to the webhook URL!");
   let userId = req.body.events[0].source.userId;
-  
+  console.log(userId)s
   if (req.body.events[0].type === "message") {
     // Message data, must be stringified
     let messageType = req.body.events[0].message.type;
@@ -178,7 +178,7 @@ router.post("/webhook", (req, res) => {
         }
       });
       function dataName(dataString) {
-        requestMessage(dataString, userId);
+        requestMessage(dataString);
       }
     }
   }
@@ -280,11 +280,32 @@ router.post("/webhook", (req, res) => {
       });
       function dataName(dataString) {
         requestMessage(dataString);
+        insertNotification(userId);
       }
     }
   }
+  function insertNotification(userId){
+    if(userId != ''){
+      let sql = "INSERT INTO notification_user (userId,	status) VALUES (?,?)"
+      conn.query(
+          sql,
+          [userId, "2"],
+          (err, resp, field) => {
+            if (resp) {
+              console.log("Inserted " + book_name);
+              return res.status(200).json({
+                status: 200,
+                message: "Inserted",
+              });
+            } else {
+              console.log("failed: " + err.message);
+            }
+          }
+        );
+    }
+  }
   // Request header
-  function requestMessage(dataString, userId) {
+  function requestMessage(dataString) {
     const headers = {
       "Content-Type": "application/json",
       Authorization: "Bearer " + TOKEN,
@@ -312,24 +333,6 @@ router.post("/webhook", (req, res) => {
     });
 
     // Send data
-    if(userId != ''){
-      let sql = "INSERT INTO notification_user (userId,	status) VALUES (?,?)"
-      conn.query(
-          sql,
-          [userId, "2"],
-          (err, resp, field) => {
-            if (resp) {
-              console.log("Inserted " + book_name);
-              return res.status(200).json({
-                status: 200,
-                message: "Inserted",
-              });
-            } else {
-              console.log("failed: " + err.message);
-            }
-          }
-        );
-    }
 
     console.log(dataString);
     request.write(dataString);
