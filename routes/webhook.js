@@ -41,7 +41,7 @@ router.post("/webhook", (req, res) => {
     let messageType = req.body.events[0].message.type;
     // console.log(req.body.events[0].message.type);
     //messageType Text Message
-    if (messageType === "text") {
+    if (messageType === "text00") {
       let sql = "SELECT * FROM tb_book";
       conn.query(sql, [], (err, resp, field) => {
         if (err) {
@@ -83,7 +83,7 @@ router.post("/webhook", (req, res) => {
       }
     }
     //messageType Sticker Message
-    if (messageType === "sticker") {
+    if (messageType === "sticker00") {
       let sql = "SELECT * FROM tb_book";
       conn.query(sql, [], (err, resp, field) => {
         if (err) {
@@ -105,7 +105,7 @@ router.post("/webhook", (req, res) => {
                 aspectRatio: "20:13",
                 aspectMode: "cover",
                 url:
-                  "https://912d-27-55-93-172.ngrok-free.app/uploads/" +
+                  "https://line.rmutt.ac.th/uploads/" +
                   resp[index].book_image,
               },
               body: {
@@ -148,7 +148,7 @@ router.post("/webhook", (req, res) => {
                     action: {
                       type: "uri",
                       label: "ดูรายการ",
-                      uri: "https://linecorp.com",
+                      uri: "https://test.com",
                     },
                   },
                 ],
@@ -451,7 +451,7 @@ router.post("/webhook", (req, res) => {
 
   //messageType beacon Message
   if (req.body.events[0].type === "beacon") {
-    if (req.body.events[0].beacon.hwid === "0172662b27") {
+    if (req.body.events[0].beacon.hwid === "0172667293") {
       let dataString = JSON.stringify({
         replyToken: req.body.events[0].replyToken,
         messages: [
