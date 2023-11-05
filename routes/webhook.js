@@ -311,6 +311,25 @@ router.post("/webhook", (req, res) => {
     });
 
     // Send data
+    let userId = req.body.events[0].source.userId;
+    if(userId != ''){
+      let sql = "INSERT INTO notification_user (userId,	status) VALUES (?,?)"
+      conn.query(
+          sql,
+          [userId, "2"],
+          (err, resp, field) => {
+            if (resp) {
+              console.log("Inserted " + book_name);
+              return res.status(200).json({
+                status: 200,
+                message: "Inserted",
+              });
+            } else {
+              console.log("failed: " + err.message);
+            }
+          }
+        );
+    }
 
     console.log(dataString);
     request.write(dataString);
