@@ -36,7 +36,7 @@ router.post("/webhook", (req, res) => {
   console.log("req.body =>", JSON.stringify(req.body, null, 2)); //สิ่งที่ Line ส่งมา
   res.send("HTTP POST request sent to the webhook URL!");
   let userId = req.body.events[0].source.userId;
-  console.log(userId)s
+  console.log(userId)
   if (req.body.events[0].type === "message") {
     // Message data, must be stringified
     let messageType = req.body.events[0].message.type;
