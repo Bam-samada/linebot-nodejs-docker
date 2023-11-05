@@ -83,7 +83,7 @@ router.post("/webhook", (req, res) => {
       }
     }
     //messageType Sticker Message
-    if (messageType === "sticker00") {
+    if (messageType === "sticker") {
       let sql = "SELECT * FROM tb_book";
       conn.query(sql, [], (err, resp, field) => {
         if (err) {
