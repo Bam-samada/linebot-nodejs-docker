@@ -321,7 +321,7 @@ router.post("/webhook", (req, res) => {
           [userId, "2"],
           (err, resp, field) => {
             if (resp) {
-              console.log("Inserted " + book_name);
+              console.log("Inserted " + userId);
               return res.status(200).json({
                 status: 200,
                 message: "Inserted",
