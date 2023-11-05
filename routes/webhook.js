@@ -83,7 +83,7 @@ router.post("/webhook", (req, res) => {
       }
     }
     //messageType Sticker Message
-    if (messageType === "sticker") {
+    if (messageType === "sticker00") {
       let sql = "SELECT * FROM tb_book";
       conn.query(sql, [], (err, resp, field) => {
         if (err) {
@@ -177,7 +177,7 @@ router.post("/webhook", (req, res) => {
         }
       });
       function dataName(dataString) {
-        requestMessage(dataString);
+	        requestMessage(dataString);
       }
     }
   }
@@ -278,7 +278,38 @@ router.post("/webhook", (req, res) => {
         }
       });
       function dataName(dataString) {
-        requestMessage(dataString);
+	  let userId = req.body.events[0].source.userId;
+	    console.log("userId = " + userId);
+	 
+	  let sql_check_user = "SELECT * FROM notification_user WHERE userId = '"+userId+"'";
+	      conn.query(sql_check_user, [], (err, resp, field) => {
+	        if (err) {
+	          console.log("failed: " + err.message);
+	        }
+	        
+	        	if (resp.length > 0) {
+			  console.log("Today Notification is Sucessfully")
+			}else{
+       			 requestMessage(dataString); //serd message to  request Function
+				
+			   //insert status notification
+			   if(userId != ''){
+			      let sql = "INSERT INTO notification_user (userId,	status) VALUES (?,?)"
+			      conn.query(
+			          sql,
+			          [userId, "2"],
+			          (err, resp, field) => {
+			            if (resp) {
+			              console.log("Inserted " + userId);
+			            } else {
+			              console.log("failed: " + err.message);
+			            }
+			          }
+			        );
+			    }
+			}
+		});
+
       }
     }
   }
@@ -311,35 +342,12 @@ router.post("/webhook", (req, res) => {
     });
 
     // Send data
-    insertNoti()
+    //insertNoti()
     console.log(dataString);
     request.write(dataString);
     request.end();
   }
-
-  function insertNoti(){
-    let userId = req.body.events[0].source.userId;
-    console.log("userId =" + userId)
-    if(userId != ''){
-      let sql = "INSERT INTO notification_user (userId,	status) VALUES (?,?)"
-      conn.query(
-          sql,
-          [userId, "2"],
-          (err, resp, field) => {
-            if (resp) {
-              console.log("Inserted " + userId);
-              return res.status(200).json({
-                status: 200,
-                message: "Inserted",
-              });
-            } else {
-              console.log("failed: " + err.message);
-            }
-          }
-        );
-    }
-  }
-  
+ 
 });
 
 module.exports = router; // ส่ง router ที่เราสร้าง ออกไปใช้งานภายนอกไฟล์
