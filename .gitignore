@@ -1,2 +1,7 @@
 node_modules/
 .env
+*.jpg
+*.png
+*.JPG
+*.PNG
+*.JPGE
