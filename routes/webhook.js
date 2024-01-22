@@ -267,7 +267,7 @@ router.post("/webhook", (req, res) => {
                 let userId = req.body.events[0].source.userId;
                 console.log("userId = " + userId);
 
-                let sql_check_user = "SELECT * FROM notification_user WHERE userId = '" + userId + "'";
+                let sql_check_user = "SELECT * FROM notification_user WHERE userId = '" + userId + "'AND DATE(timestamp) = CURDATE()";
                 conn.query(sql_check_user, [], (err, resp, field) => {
                     if (err) {
                         console.log("failed: " + err.message);
