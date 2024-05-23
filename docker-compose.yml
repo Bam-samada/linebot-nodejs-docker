@@ -44,9 +44,7 @@ services:
     volumes:
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
       - ./ssl/SSL-Certificate.crt:/etc/nginx/certs/STAR_rmutt_ac_th_2024.crt
-      - ./ssl/Intermediate-CA.crt:/etc/nginx/certs/Intermediate-CA.crt
-      - ./ssl/Root-CA.crt:/etc/nginx/certs/Root-CA.crt
-      - ./ssl/rmutt.key:/etc/nginx/certs/rmutt.key
+      - ./ssl/rmutt.key:/etc/nginx/certs/private.key
     depends_on:
       - basic-docker-web
       - phpmyadmin
