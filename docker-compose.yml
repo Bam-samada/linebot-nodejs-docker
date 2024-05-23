@@ -43,8 +43,8 @@ services:
       - "443:443"
     volumes:
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
-      - ./ssl/SSL-Certificate.crt:/etc/nginx/certs/STAR_rmutt_ac_th_2024.crt
-      - ./ssl/rmutt.key:/etc/nginx/certs/private.key
+      - ./ssl/STAR_rmutt_ac_th.crt:/etc/nginx/certs/STAR_rmutt_ac_th.crt
+      - ./ssl/rmutt.key:/etc/nginx/certs/rmutt.key
     depends_on:
       - basic-docker-web
       - phpmyadmin
