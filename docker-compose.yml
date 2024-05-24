@@ -46,7 +46,7 @@ services:
       - ./ssl/STAR_rmutt_ac_th.crt:/etc/nginx/certs/STAR_rmutt_ac_th.crt
       - ./ssl/Intermediate-CA.crt:/etc/nginx/certs/Intermediate-CA.crt
       - ./ssl/Root-CA.crt:/etc/nginx/certs/Root-CA.crt
-      - ./ssl/rmutt.key:/etc/nginx/certs/private.key
+      - ./ssl/private_key.txt:/etc/nginx/certs/private_key.txt
     depends_on:
       - basic-docker-web
       - phpmyadmin
