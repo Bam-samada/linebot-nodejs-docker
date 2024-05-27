@@ -12,6 +12,7 @@ services:
 
     volumes:
       - ./public/uploads:/usr/src/app/public/uploads
+      - .:/usr/src/app
 
   mysql:
     image: mysql:latest
