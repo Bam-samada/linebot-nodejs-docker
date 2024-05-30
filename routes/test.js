@@ -18,10 +18,15 @@ var conn = mysql.createConnection({
 
 conn.connect(function (err) {
   if (err) {
-    console.error("error connecting: " + err.stack);
+    console.error("test error connecting: " + err.stack);
     return;
   }
   console.log("connected as id " + conn.threadId);
+});
+
+// เมื่้อเข้ามาที่หน้าแรก path: "/".
+router.get("/", function (req, res, next) {
+  res.render("index", { title: "Express" });
 });
 
 module.exports = router;
