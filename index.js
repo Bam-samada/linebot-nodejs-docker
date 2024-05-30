@@ -6,6 +6,7 @@ const PORT = process.env.PORT;
 const webhook = require("./routes/webhook"); // ใช้งาน router module
 const book = require("./routes/book"); // ใช้งาน router module
 const indexWeb = require("./routes/index"); // ส่วนของการใช้งาน router module ต่างๆ
+const test = require("./routes/test"); // ส่วนของการใช้งาน router module ต่างๆ
 const path = require("path"); // เรียกใช้งาน path module
 
 // view engine setup
@@ -32,6 +33,7 @@ app.use("/index", indexWeb);
 app.use("/book", book);
 // เรียกใช้งานในรูปแบบ middlewar โดยใช้ use
 app.use("/webhook", webhook);
+app.use("/test", test);
 
 app.listen(PORT, () => {
   console.log(`listening.. at ${PORT}`);
