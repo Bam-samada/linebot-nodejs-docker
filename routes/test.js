@@ -1,33 +1,39 @@
 require("dotenv").config();
-const express = require("express"); // เรียกใช้งาน express  mudule
-const router = express.Router(); // กำหนด router instance ให้กับ express.Router class
+const express = require("express");
+const router = express.Router();
 const mysql = require("mysql2");
-const _ = require("lodash");
 
 router.use(function timeLog(req, res, next) {
   console.log("Time: ", Date.now());
   next();
 });
 
+var connectionStatus = 'Connecting...'; // สถานะการเชื่อมต่อเริ่มต้น
+
 var conn = mysql.createConnection({
-  host: "mysql",
+  host: "mysql",  // ใช้ชื่อเซอร์วิสจาก Docker Compose
   user: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
 });
 
+// พยายามเชื่อมต่อกับฐานข้อมูล
 conn.connect(function (err) {
   if (err) {
-    console.error("test error connecting: " + err.stack);
+    // แสดงข้อผิดพลาดหากการเชื่อมต่อไม่สำเร็จ
+    console.error('Error connecting to the database: ' + err.stack);
+    connectionStatus = 'Error connecting to the database: ' + err.stack; // อัพเดทสถานะการเชื่อมต่อ
     return;
   }
-  console.log("connected as id " + conn.threadId);
+  // แสดงข้อความว่าเชื่อมต่อสำเร็จพร้อม ID ของการเชื่อมต่อ
+  console.log('Connected to database as id ' + conn.threadId);
+  connectionStatus = 'Connected to database as id ' + conn.threadId; // อัพเดทสถานะการเชื่อมต่อ
 });
 
 // เมื่้อเข้ามาที่หน้าแรก path: "/".
 router.get("/", function (req, res, next) {
-  console.log("connected as id " + conn.threadId);
-  res.render("index", { title: "Express" });
+  // แสดงสถานะการเชื่อมต่อบนหน้าเว็บผ่าน res.render
+  res.render("index", { title: "Database Connection Status", status: connectionStatus });
 });
 
 module.exports = router;
