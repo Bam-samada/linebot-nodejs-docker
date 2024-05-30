@@ -11,7 +11,7 @@ router.use(function timeLog(req, res, next) {
 var connectionStatus = 'Connecting...'; // สถานะการเชื่อมต่อเริ่มต้น
 
 var conn = mysql.createConnection({
-  host: "mysql",  // ใช้ชื่อเซอร์วิสจาก Docker Compose
+  host: "mysql1",  // ใช้ชื่อเซอร์วิสจาก Docker Compose
   user: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
