@@ -26,6 +26,7 @@ conn.connect(function (err) {
 
 // เมื่้อเข้ามาที่หน้าแรก path: "/".
 router.get("/", function (req, res, next) {
+  console.log("connected as id " + conn.threadId);
   res.render("index", { title: "Express" });
 });
 
