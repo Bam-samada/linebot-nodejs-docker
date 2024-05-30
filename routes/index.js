@@ -73,13 +73,11 @@ router.get("/getall", (req, res) => {
 router.post("/insert", (req, res, next) => {
   upload.single("files")(req, res, function (error) {
     if (error) {
-      //instanceof multer.MulterError
-      res.status(500);
       if (error.code == "LIMIT_FILE_SIZE") {
         error.message = "File Size โคตรใหญ่ เปลืองพื้นมาก ห้ามเกิน 2MB จ้าแม่";
         error.success = false;
       }
-      return res.json(error);
+      return res.status(500).json(error);
     } else {
       let { book_name, book_description, book_url } = req.body;
       if (!req.file) {
@@ -122,13 +120,11 @@ router.post("/insert", (req, res, next) => {
 router.put("/update2", (req, res) => {
   upload.single("editfiles")(req, res, function (error) {
     if (error) {
-      //instanceof multer.MulterError
-      res.status(500);
       if (error.code == "LIMIT_FILE_SIZE") {
         error.message = "File Size โคตรใหญ่ เปลืองพื้นมาก ห้ามเกิน 2MB จ้าแม่";
         error.success = false;
       }
-      return res.json(error);
+      return res.status(500).json(error);
     } else {
       let { BookId, book_name, book_description } = req.body;
       function getImage() {
