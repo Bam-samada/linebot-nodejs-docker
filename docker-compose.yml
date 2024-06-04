@@ -43,11 +43,11 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
-      - ./ssl/STAR_rmutt_ac_th.crt:/etc/nginx/certs/STAR_rmutt_ac_th.crt
-     # - ./ssl/Intermediate-CA.crt:/etc/nginx/certs/Intermediate-CA.crt
-     # - ./ssl/Root-CA.crt:/etc/nginx/certs/Root-CA.crt
-      - ./ssl/private_key.txt:/etc/nginx/certs/private_key.txt
+      #- ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+      #- ./ssl/STAR_rmutt_ac_th.crt:/etc/nginx/certs/STAR_rmutt_ac_th.crt
+      #- ./ssl/Intermediate-CA.crt:/etc/nginx/certs/Intermediate-CA.crt
+      #- ./ssl/Root-CA.crt:/etc/nginx/certs/Root-CA.crt
+      #- ./ssl/private_key.txt:/etc/nginx/certs/private_key.txt
     depends_on:
       - basic-docker-web
       - phpmyadmin
